@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Voxify",
+    "version": "1.0",
+    "description": "Empowering text-to-speech for a captivating browsing experience.",
+
+    "permissions": ["contextMenus", "activeTab", "tabs", "storage"],
+    "host_permissions": ["https://app.coqui.ai/api/v2/samples/*"],
+    "optional_host_permissions": ["https://*/*", "http://*/*"],
+    "background": {
+        "service_worker": "src/background.js"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "options_ui": {
+        "page": "options.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/content.js"],
+            "run_at": "document_end"
+        }
+    ],
+
+    "web_accessible_resources": [
+        {
+            "resources": ["src/static/voices.json"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}
